@@ -27,10 +27,15 @@ summary(gapminder)
 # find the mean life expectancy
 mean(gapminder$lifeExp)
 round(mean(gapminder$lifeExp), digits=2)
+round(sd(gapminder$lifeExp), digits=2) 
+round(median(gapminder$lifeExp), digits=2) 
+round(length(gapminder$lifeExp), digits=2) 
 
 # find the median life expectancy
 # for each continent
 aggregate(lifeExp ~ continent, gapminder, median)
+aggregate(lifeExp ~ continent, gapminder, mean)
+aggregate(lifeExp ~ continent, gapminder, sd)
 
 # load the ggplot2 package
 library(ggplot2)
@@ -40,6 +45,11 @@ library(ggplot2)
 ggplot(gapminder, aes(x = continent, y = lifeExp)) +
   geom_boxplot(outlier.colour = "hotpink") +
   geom_jitter(position = position_jitter(width = 0.1, height = 0), alpha = 1/4)
+
+ggplot(gapminder, aes(x = continent, y = pop)) +
+  geom_boxplot(outlier.colour = "hotpink") +
+  geom_jitter(position = position_jitter(width = 0.1, height = 0), alpha = 1/4)
+
 
 # for convenience, integrate the 
 # country colors into the data.frame

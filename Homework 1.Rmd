@@ -1,0 +1,79 @@
+---
+title: "N741 Homework 1"
+author: "Rosemary"
+date: "1/31/2018"
+output:
+  html_document: default
+  pdf_document: default
+---
+```{r}
+library(gapminder)
+library(ggplot2)
+```
+
+#Homework 01 Exercise- Task 1
+Standard deviation for life expectancy
+```{r}
+round(sd(gapminder$lifeExp), digits=2)
+```
+
+Median for life expectancy
+```{r}
+round(median(gapminder$lifeExp), digits=2)
+```
+
+Sample size for life expectancy
+```{r}
+round(length(gapminder$lifeExp), digits=2)
+```
+
+#Homework 01 Exercise- Task 2
+Mean for life expectancy by continent
+```{r}
+aggregate(lifeExp ~ continent, gapminder, mean)
+```
+
+Standard deviation for life expectancy by continent
+```{r}
+aggregate(lifeExp ~ continent, gapminder, sd)
+```
+
+#Homework 01 Exercise- Task 3
+GG Plot GDperCap by Continent
+```{r}
+ggplot(gapminder, aes(x = continent, y = gdpPercap)) +
+  geom_boxplot(outlier.colour = "hotpink") +
+  geom_jitter(position = position_jitter(width = 0.1, height = 0), alpha = 1/4)
+```
+
+GG Plot Pop by Continent
+```{r}
+ggplot(gapminder, aes(x = continent, y = pop)) +
+  geom_boxplot(outlier.colour = "hotpink") +
+  geom_jitter(position = position_jitter(width = 0.1, height = 0), alpha = 1/4)
+```
+
+#Homework 01 Exercise- Task 4
+Bubble plot for Americas and Asia for the year 1992
+
+```{r}
+gap_with_colors <-
+  data.frame(gapminder,
+             cc = I(country_colors[match(gapminder$country,
+                                         names(country_colors))]))
+
+keepers <- with(gap_with_colors,
+                continent %in% c("Americas", "Asia") & year == 1992)
+plot(lifeExp ~ gdpPercap, gap_with_colors,
+     subset = keepers, log = "x", pch = 21,
+     cex = sqrt(gap_with_colors$pop[keepers]/pi)/1500,
+     bg = gap_with_colors$cc[keepers])
+```
+
+#Homework 01 Exercise - Task 5
+The link for this exercise is located at
+[https://github.com/RosemaryKinuthia/N741Homework1](https://github.com/RosemaryKinuthia/N741Homework1).
+
+
+
+
